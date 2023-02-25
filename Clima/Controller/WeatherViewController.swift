@@ -8,17 +8,63 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController {
-
-    @IBOutlet weak var conditionImageView: UIImageView!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
+class WeatherViewController: UIViewController, UITextFieldDelegate {
+  
+  @IBOutlet weak var conditionImageView: UIImageView!
+  @IBOutlet weak var temperatureLabel: UILabel!
+  @IBOutlet weak var cityLabel: UILabel!
+  @IBOutlet weak var searchTextField: UITextField!
+  
+  var weatherManager = WeatherManager()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view.
+    searchTextField.delegate = self
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    
+    
+  }
+  
+  @IBAction func searchPressed(_ sender: UIButton) {
+    searchTextField.endEditing(true)
+    print(searchTextField.text!)
+    
+  }
+  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    searchTextField.endEditing(true)
+    print(searchTextField.text!)
+    return true
+  }
+  
+  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    if textField.text != "" {
+      return true
+    } else {
+      textField.placeholder = "Type something shithead"
+      return false
     }
-
-
+  }
+  
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    if let city = searchTextField.text {
+      weatherManager.fetchWeather(cityName: city)
+    }
+    searchTextField.text = ""
+  }
+  
+  
+  
 }
+
+
+
+
+//API KEY
+
+// d665a9e157c482d42dd29c028f41f9a9
+
+
 
