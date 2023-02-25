@@ -62,9 +62,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 
 
 
-//API KEY
 
-// d665a9e157c482d42dd29c028f41f9a9
 
 
 
